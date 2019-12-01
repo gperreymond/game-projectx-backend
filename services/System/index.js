@@ -1,3 +1,5 @@
+const debug = require('debug')('application:service'.padEnd(25, ' '))
+
 module.exports = {
   name: 'System',
   metadata: {
@@ -8,5 +10,11 @@ module.exports = {
       cache: true,
       handler: require('./GetStackHealthCheckQuery/handler')
     }
+  },
+  async created () {
+    debug(`${this.name} is created`)
+  },
+  async started () {
+    debug(`${this.name} has started`)
   }
 }

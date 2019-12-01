@@ -28,11 +28,17 @@ class Moleculer {
         TRANSPORTER: 'error',
         '**': 'info'
       },
-      cacher: 'Memory',
+      cacher: {
+        type: 'memory',
+        options: {
+          ttl: 60 // 60 seconds
+        }
+      },
       logger: Configuration.moleculer.logger,
       metrics: true,
       middlewares: [{
         stopped: () => {
+          debug('Moleculer stopped')
           this.emit('error', new Error('Moleculer has stopped'))
         },
         started: () => {

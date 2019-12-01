@@ -1,4 +1,4 @@
-const debug = require('debug')('application:gateway'.padEnd(25, ' '))
+const debug = require('debug')('application:module'.padEnd(25, ' '))
 
 const colors = require('colors')
 const Hapi = require('@hapi/hapi')
@@ -11,7 +11,7 @@ const Configuration = require('../../config')
 module.exports = {
   name: 'ApiGateway',
   async created () {
-    debug(`Service ${this.name} started`)
+    debug(`${this.name} service created`)
     await this.start()
   },
   methods: {
@@ -28,7 +28,7 @@ module.exports = {
               selectedColor = 'yellow'
               metadata.options.plugins['hapi-swagger'].security = [{ BasicAuth: [] }]
             }
-            debug(`Route ${colors[selectedColor](metadata.method)} ${colors[selectedColor](metadata.path)} is registered with auth: ${colors[selectedColor](metadata.options.auth)}`)
+            debug(`${this.name} route ${colors[selectedColor](metadata.method)} ${colors[selectedColor](metadata.path)} is registered with auth: ${colors[selectedColor](metadata.options.auth)}`)
             this._server.route({
               ...metadata,
               async handler ({ $moleculer, payload, params, query }) {
@@ -59,7 +59,7 @@ module.exports = {
       })
       // inert and vision
       await this._server.register([Inert, Vision])
-      debug('Plugin Inert, Vision are registered')
+      debug(`${this.name} plugin Inert, Vision are registered`)
       // swagger auto documentation
       const swaggerOptions = {
         info: {
@@ -76,11 +76,11 @@ module.exports = {
         grouping: 'tags'
       }
       await this._server.register({ plugin: HapiSwagger, options: swaggerOptions })
-      debug('Plugin HapiSwagger is registered')
+      debug(`${this.name} plugin HapiSwagger is registered`)
       await this.initializeRoutes()
       this._server.decorate('request', '$moleculer', this.broker) // add moleculer instance to request
       await this._server.start()
-      debug('HapiJS server started')
+      debug(`${this.name} server has started`)
     }
   }
 }
