@@ -12,7 +12,7 @@ module.exports = {
   name: 'ApiGateway',
   async created () {
     debug(`${this.name} service created`)
-    await this.start()
+    await this.startServer()
   },
   methods: {
     async initializeRoutes () {
@@ -47,7 +47,7 @@ module.exports = {
         })
       })
     },
-    async start () {
+    async startServer () {
       /* istanbul ignore next */
       if (this._server) return
       this._server = new Hapi.Server({

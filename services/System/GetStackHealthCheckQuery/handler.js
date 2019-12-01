@@ -12,7 +12,7 @@ const handler = async function (ctx) {
     }
   } catch (e) {
     /* istanbul ignore next */
-    this.logger.error('System.GetStackHealthCheckQuery', e.message)
+    this.logger.error(ctx.action.name, e.message)
     /* istanbul ignore next */
     return Promise.reject(e)
   }
