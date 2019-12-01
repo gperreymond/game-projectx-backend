@@ -18,7 +18,8 @@
     "knex:rollback": "knex migrate:rollback",
     "knex:seed": "knex seed:run",
     "knex:all": "knex migrate:rollback && knex migrate:latest && knex seed:run",
-    "standard": "standard"
+    "standard": "standard",
+    "start": "nodemon"
   },
   "dependencies": {
     "@hapi/basic": "5.1.1",
@@ -45,7 +46,21 @@
   },
   "devDependencies": {
     "jest": "24.9.0",
-    "nodemon": "2.0.1",
+    "nodemon": "1.19.4",
     "standard": "14.3.1"
+  },
+  "standard": {
+    "ignore": [],
+    "globals": [
+      "describe",
+      "test",
+      "fit",
+      "expect",
+      "beforeAll",
+      "afterAll",
+      "beforeEach",
+      "afterEach",
+      "jest"
+    ]
   }
 }
